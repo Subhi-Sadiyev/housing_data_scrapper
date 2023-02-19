@@ -4,6 +4,7 @@ from random import randint
 from time import sleep
 
 
+
 ##reading a list of item id's from binaz_az_items_id_half.txt (24045 items)"
 
 #items_list_file = open('binaz_az_items_id_half.txt', 'r')
@@ -11,8 +12,6 @@ from time import sleep
 #reading = items_list_file.read()
 
 #items_list = reading.split(',')
-
-
 
 
 
@@ -78,7 +77,7 @@ final_yeni_tikili_items_list = [s.replace('id":"', '') for s in yeni_tikili_item
 
 
 
-### fetching price and view count of limited amount of items
+### main function
 
 
 URL = 'https://bina.az/items/'
@@ -88,7 +87,7 @@ headers = {
 }
 
 
-for item in final_yeni_tikili_items_list:
+for item in final_yeni_tikili_items_list[0:1000]:
         
         try:
             
@@ -101,25 +100,29 @@ for item in final_yeni_tikili_items_list:
             rent_or_sell = soup.find(attrs={"class" : "type"}).text
             address_description = soup.find(attrs={"class" : "map_address"}).text
             address_tag = soup.find(attrs={"class" : "locations"}).text
+            item_owner = soup.find(attrs={"class" : "ownership"}).text
+
+            
     
 
-            print(f" {price} + {rent_or_sell} + {item_info} + {parameters} + {address_description} + {address_tag}")
-            with open("bina_az_few_items.txt", "a", encoding="utf8") as f:
+            print(f" {price} + {rent_or_sell} + {address_description} + {address_tag} + {item_owner} + {item_info} + {parameters}")
+            with open("bina_az_yeni_tikili_0-1000_items.txt", "a", encoding="utf8") as f:
                 f.write( str(price) + 
-                str(' - ') + 
+                str(' | ') + 
                 str(rent_or_sell) + 
-                str(' - ') + 
-                str(item_info) + 
-                str(' - ') +
-                str(parameters) +
-                str(' - ') + 
+                str(' | ') + 
                 str(address_description) +
-                str(' - ') +
+                str(' | ') +
                 str(address_tag) +
-                str(' - ')
-                 + str('- Bina-az') )
+                str(' | ') +
+                str(item_owner) +
+                str(' | ') + 
+                str(item_info) + 
+                str(' | ') +
+                str(parameters) +
+                str('| Bina-az') )
 
-            sleep(randint(20,30))
+            sleep(randint(15,20))
 
         except AttributeError:
             pass
