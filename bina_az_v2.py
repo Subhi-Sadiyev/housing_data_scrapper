@@ -106,7 +106,7 @@ for item in final_yeni_tikili_items_list[0:1000]:
     
 
             print(f" {price} + {rent_or_sell} + {address_description} + {address_tag} + {item_owner} + {item_info} + {parameters}")
-            with open("bina_az_yeni_tikili_0-1000_items.txt", "a", encoding="utf8") as f:
+            with open("bina_az_yeni_tikili_0-1000_items_v2.txt", "a", encoding="utf8") as f:
                 f.write( str(price) + 
                 str(' | ') + 
                 str(rent_or_sell) + 
